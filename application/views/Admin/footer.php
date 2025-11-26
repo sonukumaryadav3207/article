@@ -1,9 +1,9 @@
 <footer class="bg-dark text-light pt-4 mt-5">
 
 
-    <div class="text-center py-2">
-        © <?= date('Y') ?> Sonu Yadav — All Rights Reserved
-    </div>
+        <div class="text-center py-2">
+            © <?= date('Y') ?> Sonu Yadav — All Rights Reserved
+        </div>
 
 
     <!-- jQuery (optional) -->

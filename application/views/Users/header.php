@@ -22,7 +22,7 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Login</a>
+                        <a class="nav-link active" href="<?php echo base_url('admin/login') ?>">Login</a>
                     </li>
                 </ul>
 
