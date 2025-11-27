@@ -1,7 +1,10 @@
 <?php include('header.php') ?>
 <div class="container" style="margin-top: 20px;">
+    
     <h1>Admin Form</h1>
+
     <?php echo form_open('admin/login'); ?>
+
     <div class="row">
         <div class="col-lg-6">
             <div class="mb-3">
@@ -36,8 +39,14 @@
         </div>
     </div>
 
-    <?php echo form_submit(['class' => 'btn btn-primary', 'value' => 'Submit']); ?>
+    <?php echo form_submit([
+        'class' => 'btn btn-success',
+        'value' => 'Submit'
+    ]); ?>
+
     <?php echo form_reset(['class' => 'btn btn-danger', 'value' => 'Reset']); ?>
+
+    <a href="<?php echo base_url('admin/signup') ?>" class="btn btn-primary">Sign Up</a>
 
     </form>
 </div>
