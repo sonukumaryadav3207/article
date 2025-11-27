@@ -17,7 +17,7 @@ class Login_modal extends CI_Model
         $id = $this->session->userdata('id');
         $query = $this->db->select('id, article_title')
             ->from('articles')
-            ->where('id', $id)
+            ->where('user_id', $id)
             ->get();
 
 

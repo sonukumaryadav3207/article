@@ -1,6 +1,13 @@
 <?php
 class Admin extends MY_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        if (!$this->session->userdata('id')) {
+            redirect('admin/login');
+        }
+    }
     public function login()
     {
         $this->load->library('form_validation');
@@ -40,7 +47,7 @@ class Admin extends MY_Controller
         $this->load->model('Login_modal');
         $this->form_validation->set_rules('firstname', 'First Name', 'required|alpha');
         $this->form_validation->set_rules('lastname', 'Last Name', 'required|alpha');
-        $this->form_validation->set_rules('email', 'E-mail', 'required');
+        $this->form_validation->set_rules('email', 'E-mail', 'required|valid_email|is_unique[users.email]');
         $this->form_validation->set_rules('password', 'Password', 'required|max_length[6] ');
         $this->form_validation->set_error_delimiters("<div class='text-danger'>", "</div");
         if ($this->form_validation->run()) {
@@ -52,9 +59,26 @@ class Admin extends MY_Controller
                 'firstname' => $firstname,
                 'lastname'  => $lastname,
                 'username'     => $firstname,
-                'password'  => $password
+                'password'  => $password,
+                'email' => $email
             ];
             $ins = $this->db->insert('users', $data);
+
+            $this->load->library('email');
+            $this->email->from(set_value('email'), set_value('firstname'));
+            $this->email->to('iamsky3207@gmail.com');
+            $this->email->subject("Registration Greeting..");
+
+            $this->email->message("thank you");
+            $this->email->set_newline("\r\n");
+            $this->email->send();
+
+            if (!$this->email->send()) {
+                show_error($this->email->print_debugger());
+            } else {
+                echo "your mail has been sent";
+            }
+
             if ($ins) {
                 return redirect('admin/login');
             } else {
@@ -68,6 +92,8 @@ class Admin extends MY_Controller
 
     public function welcome()
     {
+
+
         $this->load->model('Login_modal');
         $article = $this->Login_modal->articleList();
 
