@@ -4,9 +4,9 @@ class Admin extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        if (!$this->session->userdata('id')) {
-            redirect('admin/login');
-        }
+        // if (!$this->session->userdata('id')) {
+        //     redirect('admin/login');
+        // }
     }
     public function login()
     {
@@ -92,11 +92,25 @@ class Admin extends MY_Controller
 
     public function welcome()
     {
+        if (!$this->session->userdata('id')) {
+            redirect('admin/login');
+        }
 
 
         $this->load->model('Login_modal');
         $article = $this->Login_modal->articleList();
 
-        $this->load->view('admin/dashboard', ['article' => $article]);
+        $this->load->view('admin/dashboard_ajax', ['article' => $article]);
+    }
+
+    public function showAllEmployee()
+    {
+        $this->load->model('Login_modal');
+        $data = $this->Login_modal->articleList();
+
+        // Set JSON header
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($data));
     }
 }
